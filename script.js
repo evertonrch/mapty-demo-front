@@ -79,7 +79,13 @@ class App {
   #workouts = [];
 
   constructor() {
+    //Get position
     this._getPosition();
+
+    //Get data from localStorage
+    this._getLocalStorage();
+
+    //Event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -96,9 +102,8 @@ class App {
 
   _loadMap(pos) {
     const { latitude: lat, longitude: lng } = pos.coords;
-    console.log(`https://www.google.com.br/maps/@${lat},${lng}`);
 
-    this.#map = L.map('map').setView([51.505, -0.09], this.#mapZoomLevel);
+    this.#map = L.map('map').setView([lat, lng], this.#mapZoomLevel);
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -106,6 +111,10 @@ class App {
 
     //const coords = [lat, lng];
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(workout => {
+      this._renderWorkoutMarker(workout);
+    });
   }
 
   _showForm(mapE) {
@@ -175,7 +184,6 @@ class App {
 
     //Add new obj to workout array
     this.#workouts.push(Workout);
-    console.log(Workout);
 
     //Render workout on map as marker
     this._renderWorkoutMarker(Workout);
@@ -185,6 +193,9 @@ class App {
 
     //Clear input fields + hide form
     this._hideForm();
+
+    //Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -207,7 +218,7 @@ class App {
 
   _renderWorkout(workout) {
     let html = `
-        <li class="workout ${workout.type}" data-id="${workout.id}">
+        <li class="workout workout--${workout.type}" data-id="${workout.id}">
           <h2 class="workout__title">${workout.description}</h2>
           <div class="workout__details">
             <span class="workout__icon">${
@@ -260,7 +271,6 @@ class App {
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-    console.log(workoutEl);
 
     if (!workoutEl) return;
 
@@ -277,8 +287,29 @@ class App {
     });
 
     //Using API
-    workout.click();
+    //workout.click();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(workout => {
+      this._renderWorkout(workout);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
-new App();
+const app = new App();
