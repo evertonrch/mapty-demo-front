@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "outDir": "dist/js",                                   /* Specify an output folder for all emitted files. */
+     "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "strictNullChecks": true                         /* When type checking, take into account 'null //"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "include": ["app/**/*"]
+}
