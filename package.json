@@ -1,0 +1,23 @@
+{
+  "name": "mapty-demo-front",
+  "version": "1.0.0",
+  "description": "workout map",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evertonrch/mapty-demo-front.git"
+  },
+  "author": "Everton Rocha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evertonrch/mapty-demo-front/issues"
+  },
+  "homepage": "https://github.com/evertonrch/mapty-demo-front#readme",
+  "dependencies": {
+    "@types/leaflet": "^1.9.14",
+    "leaflet": "^1.9.4"
+  }
+}

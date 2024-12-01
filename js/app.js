@@ -69,7 +69,6 @@ class Cycling extends Workout {
 
 const run1 = new Running([-23, 44], 5.2, 24, 178);
 const cyc1 = new Cycling([-23, 44], 10.33, 95, 344);
-console.log(run1, cyc1);
 
 //////////////////////////////
 class App {
@@ -277,7 +276,6 @@ class App {
     const workout = this.#workouts.find(
       workout => workout.id === workoutEl.dataset.id
     );
-    console.log(workout);
 
     this.#map.setView(workout.coords, this.#mapZoomLevel, {
       animate: true,
